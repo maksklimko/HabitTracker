@@ -16,6 +16,7 @@ dependencies:
   drift_flutter: ^0.2.1
   beamer: ^1.7.0
   riverpod_lint: ^2.6.2
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
