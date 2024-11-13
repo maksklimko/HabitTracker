@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/utils/constants/colors.dart';
 
 class AppTheme{
   AppTheme._();
@@ -8,13 +9,13 @@ class AppTheme{
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness:  Brightness.light,
-    primaryColor: Colors.black,
-    scaffoldBackgroundColor: Colors.white,
+    primaryColor: AppColors.x08080a,
+    scaffoldBackgroundColor: AppColors.xf6f6f7,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness:  Brightness.light,
-    primaryColor: Colors.black,
-    scaffoldBackgroundColor: Colors.white,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: Colors.black,
   );
 }
