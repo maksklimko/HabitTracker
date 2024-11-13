@@ -2,6 +2,7 @@ import 'dart:ui';
 
 class AppColors {
   static const Color x08080a = Color(0xFF08080a);
+  static const Color x1c1c1c = Color(0xFF1c1c1c);
   static const Color xf6f6f7 = Color(0xFFf6f6f7);
   static const Color xbec0c7 = Color(0xFFbec0c7);
   static const Color x3a3b41 = Color(0xFF3a3b41);
