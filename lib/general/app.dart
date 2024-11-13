@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/screens/main_screen/UI/main_screen.dart';
 import 'package:habit_tracker/screens/splash_screen/UI/splash_screen.dart';
+import 'package:habit_tracker/utils/theme/theme.dart';
 
 class App extends StatelessWidget {
   App({super.key});
@@ -19,7 +20,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Habit tracker',
-      //TODO: add Theme
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       routeInformationParser: BeamerParser(),
       routerDelegate: routerDelegate,
       debugShowCheckedModeBanner: false,
