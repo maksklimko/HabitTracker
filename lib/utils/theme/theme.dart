@@ -10,11 +10,16 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: AppColors.x08080a,
     scaffoldBackgroundColor: AppColors.xf6f6f7,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColors.xf6f6f7,
+      selectedItemColor: AppColors.x08080a,
+      unselectedItemColor: AppColors.xbec0c7,
+    ),
     textTheme: TextTheme(
       titleLarge: GoogleFonts.roboto(
         fontSize: 38,
         fontWeight: FontWeight.bold,
-        color: AppColors.xf6f6f7,
+        color: AppColors.x08080a,
       ),
     ),
   );
@@ -23,6 +28,11 @@ class AppTheme {
       brightness: Brightness.light,
       primaryColor: Colors.white,
       scaffoldBackgroundColor: Colors.black,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.black,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+      ),
       textTheme: TextTheme(
         titleLarge: GoogleFonts.roboto(
           fontSize: 38,
