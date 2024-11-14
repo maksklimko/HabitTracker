@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/general/app.dart';
 
-void main() {
-  runApp(App());
+Future main() async{
+  runApp(ProviderScope(
+    child: App(),
+  ),);
 }
