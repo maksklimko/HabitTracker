@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:beamer/beamer.dart';
 import 'package:drawing_animation/drawing_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -103,27 +104,21 @@ class _PathAnimationState extends State<PathAnimation>
             size: screenSize,
           ),
         ),
-        Animate()
-            .custom(
-              delay: 1600.ms,
-              duration: 500.ms,
-              curve: Curves.easeInQuint,
-              builder: (_, value, __) => CustomPaint(
-                painter: CirclePainter(
-                  center:
-                      Offset(screenSize.width / 4.9, screenSize.height / 2.45),
-                  radius: value * max(screenSize.height,screenSize.width),
-                  isFilled: false,
-                ),
-                size: screenSize,
-              ),
-            )
-            .custom(
+        Animate(
+          onComplete: (_) => Beamer.of(context).beamToNamed("/main"),
+        ).custom(
           delay: 1600.ms,
           duration: 500.ms,
           curve: Curves.easeInQuint,
-              builder: (context, value, child) => child,
+          builder: (_, value, __) => CustomPaint(
+            painter: CirclePainter(
+              center: Offset(screenSize.width / 4.9, screenSize.height / 2.45),
+              radius: value * max(screenSize.height, screenSize.width),
+              isFilled: false,
             ),
+            size: screenSize,
+          ),
+        ),
       ],
     );
   }
