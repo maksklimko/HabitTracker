@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:drawing_animation/drawing_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:habit_tracker/utils/constants/colors.dart';
 
 class PathAnimation extends StatefulWidget {
@@ -12,77 +14,16 @@ class PathAnimation extends StatefulWidget {
 
 class _PathAnimationState extends State<PathAnimation>
     with TickerProviderStateMixin {
-  late AnimationController animationController;
-  late Animation<double> circle1Animation;
-  late Animation<double> circle2Animation;
-  late Animation<double> circle3Animation;
-  late Animation<double> circle4Animation;
-  late Animation<double> largeCircleAnimation;
+  late AnimationController pathAnimationController;
 
   @override
   void initState() {
-    animationController = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+    pathAnimationController = AnimationController(
       vsync: this,
+      duration: 1.seconds,
     );
 
-    circle1Animation = Tween<double>(begin: 0, end: 4).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(
-          0.4,
-          0.6,
-          curve: Curves.elasticOut,
-        ),
-      ),
-    );
-
-    circle2Animation = Tween<double>(begin: 0, end: 7).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(
-          0.45,
-          0.65,
-          curve: Curves.elasticOut,
-        ),
-      ),
-    );
-
-    circle3Animation = Tween<double>(begin: 0, end: 4).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(
-          0.5,
-          0.7,
-          curve: Curves.elasticOut,
-        ),
-      ),
-    );
-
-    circle4Animation = Tween<double>(begin: 0, end: 4).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(
-          0.55,
-          0.75,
-          curve: Curves.elasticOut,
-        ),
-      ),
-    );
-
-    largeCircleAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(
-          0.65,
-          0.9,
-          curve: Curves.easeInQuint,
-        ),
-      ),
-    );
-
-    animationController.addListener(() => setState(() {}));
-    animationController.forward();
+    pathAnimationController.forward();
 
     super.initState();
   }
@@ -91,51 +32,119 @@ class _PathAnimationState extends State<PathAnimation>
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Stack(
+      alignment: Alignment.topLeft,
       children: [
-        CustomPaint(
-          painter: PathPainter(),
-          size: screenSize,
+        AnimatedDrawing.paths(
+          [getPath(screenSize)],
+          scaleToViewport: false,
+          paints: [
+            Paint()
+              ..color = Colors.white
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1
+          ],
+          controller: pathAnimationController,
         ),
-        CustomPaint(
-          painter: CirclePainter(
-            center: Offset(screenSize.width / 5.5, screenSize.height / 3.4),
-            radius: circle1Animation.value,
+        Animate().custom(
+          delay: 800.ms,
+          duration: 400.ms,
+          begin: 0,
+          end: 4,
+          curve: Curves.easeInQuint,
+          builder: (_, value, __) => CustomPaint(
+            painter: CirclePainter(
+              center: Offset(screenSize.width / 5.5, screenSize.height / 3.4),
+              radius: value,
+            ),
+            size: screenSize,
           ),
-          size: screenSize,
         ),
-        CustomPaint(
-          painter: CirclePainter(
-            center: Offset(screenSize.width / 4.9, screenSize.height / 2.45),
-            radius: circle2Animation.value,
+        Animate().custom(
+          delay: 900.ms,
+          duration: 400.ms,
+          begin: 0,
+          end: 7,
+          curve: Curves.easeInQuint,
+          builder: (_, value, __) => CustomPaint(
+            painter: CirclePainter(
+              center: Offset(screenSize.width / 4.9, screenSize.height / 2.45),
+              radius: value,
+            ),
+            size: screenSize,
           ),
-          size: screenSize,
         ),
-        CustomPaint(
-          painter: CirclePainter(
-            center: Offset(screenSize.width / 2, screenSize.height / 2.39),
-            radius: circle3Animation.value,
-            isFilled: false,
+        Animate().custom(
+          delay: 1000.ms,
+          duration: 400.ms,
+          begin: 0,
+          end: 4,
+          curve: Curves.easeInQuint,
+          builder: (_, value, __) => CustomPaint(
+            painter: CirclePainter(
+              center: Offset(screenSize.width / 2, screenSize.height / 2.39),
+              radius: value,
+              isFilled: false,
+            ),
+            size: screenSize,
           ),
-          size: screenSize,
         ),
-        CustomPaint(
-          painter: CirclePainter(
-            center: Offset(screenSize.width / 1.25, screenSize.height / 1.9),
-            radius: circle4Animation.value,
-            isFilled: false,
+        Animate().custom(
+          delay: 1100.ms,
+          duration: 400.ms,
+          begin: 0,
+          end: 4,
+          curve: Curves.easeInQuint,
+          builder: (_, value, __) => CustomPaint(
+            painter: CirclePainter(
+              center: Offset(screenSize.width / 1.25, screenSize.height / 1.9),
+              radius: value,
+              isFilled: false,
+            ),
+            size: screenSize,
           ),
-          size: screenSize,
         ),
-        CustomPaint(
-          painter: CirclePainter(
-            center: Offset(screenSize.width / 4.9, screenSize.height / 2.45),
-            radius: largeCircleAnimation.value*screenSize.height,
-            isFilled: false,
-          ),
-          size: screenSize,
-        ),
+        Animate()
+            .custom(
+              delay: 1600.ms,
+              duration: 500.ms,
+              curve: Curves.easeInQuint,
+              builder: (_, value, __) => CustomPaint(
+                painter: CirclePainter(
+                  center:
+                      Offset(screenSize.width / 4.9, screenSize.height / 2.45),
+                  radius: value * max(screenSize.height,screenSize.width),
+                  isFilled: false,
+                ),
+                size: screenSize,
+              ),
+            )
+            .custom(
+          delay: 1600.ms,
+          duration: 500.ms,
+          curve: Curves.easeInQuint,
+              builder: (context, value, child) => child,
+            ),
       ],
     );
+  }
+
+  Path getPath(Size size) {
+    return Path()
+      ..moveTo(0, size.height / 4)
+      ..quadraticBezierTo(size.width / 5.5, size.height / 3.3, size.width / 3,
+          size.height / 3.25)
+      ..cubicTo(size.width / 2.4, size.height / 3.2, size.width / 2.2,
+          size.height / 2.9, size.width / 4, size.height / 2.6)
+      ..cubicTo(size.width / 5, size.height / 2.53, size.width / 7,
+          size.height / 2.35, size.width / 3, size.height / 2.35)
+      ..cubicTo(size.width / 3, size.height / 2.345, size.width / 2,
+          size.height / 2.4, size.width / 1.7, size.height / 2.4)
+      ..cubicTo(size.width / 1.7, size.height / 2.40, size.width / 1.35,
+          size.height / 2.4, size.width / 1.3, size.height / 2.2)
+      ..cubicTo(size.width / 1.3, size.height / 2.07, size.width / 1.4,
+          size.height / 2.05, size.width / 1.4, size.height / 2)
+      ..cubicTo(size.width / 1.4, size.height / 1.95, size.width / 1.4,
+          size.height / 1.9, size.width, size.height / 1.85);
   }
 }
 
@@ -160,7 +169,7 @@ class CirclePainter extends CustomPainter {
       ..strokeWidth = 1;
     Paint backgroundPaint = Paint()
       ..color = AppColors.x1c1c1c
-      ..style =  PaintingStyle.fill
+      ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
     canvas.drawCircle(center, radius, backgroundPaint);
@@ -180,22 +189,22 @@ class PathPainter extends CustomPainter {
       ..color = Colors.white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
-    Path path = Path();
-    path.moveTo(0, size.height / 4);
-    path.quadraticBezierTo(size.width / 5.5, size.height / 3.3, size.width / 3,
-        size.height / 3.25);
-    path.cubicTo(size.width / 2.4, size.height / 3.2, size.width / 2.2,
-        size.height / 2.9, size.width / 4, size.height / 2.6);
-    path.cubicTo(size.width / 5, size.height / 2.53, size.width / 7,
-        size.height / 2.35, size.width / 3, size.height / 2.35);
-    path.cubicTo(size.width / 3, size.height / 2.345, size.width / 2,
-        size.height / 2.4, size.width / 1.7, size.height / 2.4);
-    path.cubicTo(size.width / 1.7, size.height / 2.40, size.width / 1.35,
-        size.height / 2.4, size.width / 1.3, size.height / 2.2);
-    path.cubicTo(size.width / 1.3, size.height / 2.07, size.width / 1.4,
-        size.height / 2.05, size.width / 1.4, size.height / 2);
-    path.cubicTo(size.width / 1.4, size.height / 1.95, size.width / 1.4,
-        size.height / 1.9, size.width, size.height / 1.85);
+    Path path = Path()
+      ..moveTo(0, size.height / 4)
+      ..quadraticBezierTo(size.width / 5.5, size.height / 3.3, size.width / 3,
+          size.height / 3.25)
+      ..cubicTo(size.width / 2.4, size.height / 3.2, size.width / 2.2,
+          size.height / 2.9, size.width / 4, size.height / 2.6)
+      ..cubicTo(size.width / 5, size.height / 2.53, size.width / 7,
+          size.height / 2.35, size.width / 3, size.height / 2.35)
+      ..cubicTo(size.width / 3, size.height / 2.345, size.width / 2,
+          size.height / 2.4, size.width / 1.7, size.height / 2.4)
+      ..cubicTo(size.width / 1.7, size.height / 2.40, size.width / 1.35,
+          size.height / 2.4, size.width / 1.3, size.height / 2.2)
+      ..cubicTo(size.width / 1.3, size.height / 2.07, size.width / 1.4,
+          size.height / 2.05, size.width / 1.4, size.height / 2)
+      ..cubicTo(size.width / 1.4, size.height / 1.95, size.width / 1.4,
+          size.height / 1.9, size.width, size.height / 1.85);
     canvas.drawPath(path, paint);
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker/screens/splash_screen/UI/path_animation.dart';
 
@@ -29,7 +30,7 @@ class SplashScreen extends StatelessWidget{
                       fontWeight: FontWeight.w700,
                       color: AppColors.x7d7e84,
                     ),
-                  ),
+                  ).animate().fade(),
                   Text(
                     "your habit.",
                     style: GoogleFonts.roboto(
@@ -38,7 +39,7 @@ class SplashScreen extends StatelessWidget{
                       color: AppColors.xf6f6f7,
                       height: 1
                     ),
-                  ),
+                  ).animate().fade(delay: 500.ms),
                   const Spacer(
                     flex: 1,
                   ),
