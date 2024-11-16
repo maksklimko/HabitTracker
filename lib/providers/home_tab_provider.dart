@@ -32,9 +32,9 @@ class HomeTabNotifier extends StateNotifier<AsyncValue<HomeTabModel>> {
     print(await db.getHabitHistory((await db.getHabits()).first));
     final habits = await db.getHabits();
     HomeTabModel model = HomeTabModel(habitsData: {});
-    habits.map((habit) async {
+    await Future.forEach(habits, (habit) async {
       model.habitsData.addAll({habit: await db.getHabitHistory(habit)});
-    }).toList();
+    });
     state = AsyncValue.data(model);
   }
 
