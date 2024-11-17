@@ -20,8 +20,7 @@ class HomeTabNotifier extends StateNotifier<AsyncValue<HomeTabModel>> {
     loadData();
   }
 
-  Future loadData({bool addLoader = true}) async {
-    state = const AsyncValue.loading();
+  Future loadData() async {
     // await db.clearDatabase();
     // await db.into(db.habits).insert(HabitsCompanion.insert(
     //   title: 'Drink water',
@@ -29,7 +28,7 @@ class HomeTabNotifier extends StateNotifier<AsyncValue<HomeTabModel>> {
     //   createdAt: DateUtils.dateOnly(DateTime.now()),
     // ));
     print(await db.getHabits());
-    print(await db.getHabitHistory((await db.getHabits()).first));
+    // print(await db.getHabitHistory((await db.getHabits()).first));
     final habits = await db.getHabits();
     HomeTabModel model = HomeTabModel(habitsData: {});
     await Future.forEach(habits, (habit) async {
@@ -46,6 +45,6 @@ class HomeTabNotifier extends StateNotifier<AsyncValue<HomeTabModel>> {
       //add history record
       await db.addHistoryRecord(habitId, date);
     }
-    loadData(addLoader: false);
+    loadData();
   }
 }

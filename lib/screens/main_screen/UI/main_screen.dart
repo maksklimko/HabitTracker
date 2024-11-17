@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/providers/bottom_navigation_provider.dart';
 import 'package:habit_tracker/screens/home_tab/UI/home_tab.dart';
-import 'package:habit_tracker/screens/settings_tab.dart';
+import 'package:habit_tracker/screens/settings_tab/UI/settings_tab.dart';
 import 'package:habit_tracker/screens/statistic_tab/UI/statistic_tab.dart';
 
 enum MainScreenRoute {

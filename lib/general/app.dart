@@ -4,14 +4,17 @@ import 'package:habit_tracker/screens/main_screen/UI/main_screen.dart';
 import 'package:habit_tracker/screens/splash_screen/UI/splash_screen.dart';
 import 'package:habit_tracker/utils/theme/theme.dart';
 
+import '../screens/create_habit_screen/create_habit_screen.dart';
+
 class App extends StatelessWidget {
   App({super.key});
 
   final routerDelegate = BeamerDelegate(
-    locationBuilder:  RoutesLocationBuilder(
+    locationBuilder: RoutesLocationBuilder(
       routes: {
         '/': (context, state, data) => const SplashScreen(),
         '/main': (context, state, data) => const MainScreen(),
+        '/createHabit': (context, state, data) => const CreateHabitScreen(),
       },
     ).call,
   );
@@ -22,7 +25,7 @@ class App extends StatelessWidget {
       title: 'Habit tracker',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       routeInformationParser: BeamerParser(),
       routerDelegate: routerDelegate,
       debugShowCheckedModeBanner: false,

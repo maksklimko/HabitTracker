@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/material.dart' show DateUtils;
+import 'package:habit_tracker/models/screens/create_habit_model.dart';
 
 import '../db_tables/habit_history_entries_table.dart';
 import '../db_tables/habits_table.dart';
@@ -48,6 +49,16 @@ class AppDatabase extends _$AppDatabase {
       HabitHistoryEntriesCompanion.insert(
         completedAt: DateUtils.dateOnly(date),
         habit: habitId,
+      ),
+    );
+  }
+
+  Future addHabit(CreateHabitModel model) async {
+    into(habits).insert(
+      HabitsCompanion.insert(
+        createdAt: DateUtils.dateOnly(DateTime.now()),
+        title: model.title,
+        motivation: Value(model.description),
       ),
     );
   }

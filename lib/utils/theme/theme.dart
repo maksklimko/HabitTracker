@@ -21,6 +21,20 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         color: AppColors.x08080a,
       ),
+      titleMedium: GoogleFonts.roboto(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: AppColors.x08080a,
+      ),
+      titleSmall: GoogleFonts.roboto(
+        fontSize: 16,
+        color: AppColors.x08080a,
+      ),
+      labelLarge: GoogleFonts.roboto(
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+        color: AppColors.x08080a,
+      ),
       labelMedium: GoogleFonts.roboto(
         fontSize: 14,
         fontWeight: FontWeight.w700,
@@ -47,6 +61,20 @@ class AppTheme {
         titleLarge: GoogleFonts.roboto(
           fontSize: 38,
           fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        titleMedium: GoogleFonts.roboto(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        titleSmall: GoogleFonts.roboto(
+          fontSize: 16,
+          color: Colors.white,
+        ),
+        labelLarge: GoogleFonts.roboto(
+          fontSize: 20,
+          fontWeight: FontWeight.w400,
           color: Colors.white,
         ),
         labelMedium: GoogleFonts.roboto(
