@@ -24,7 +24,7 @@ class DayTile extends ConsumerWidget {
       child: Column(
         children: [
           Container(
-            height: 50,
+            height: 30,
             alignment: Alignment.bottomCenter,
             child: isLastMonthDay || isCurrentDate
                 ? Text(

@@ -13,18 +13,17 @@ class HomeTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeTabState = ref.watch(homeTabProvider);
-    final createHabit = ref.watch(createHabitProvider);
     return homeTabState.when(
       loading: () => const CircularProgressIndicator(),
       error: (err, stack) => Text('Error: $err'),
       data: (model) {
-        return  ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.mouse,
-                PointerDeviceKind.touch,
-              },
-            ),
+        return ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.touch,
+            },
+          ),
           child: SingleChildScrollView(
             child: Column(children: [
               const SizedBox(height: 50),
@@ -32,7 +31,7 @@ class HomeTab extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 35),
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Beamer.of(context).beamToNamed('/createHabit');
                   },
                   child: const Icon(
@@ -41,11 +40,17 @@ class HomeTab extends ConsumerWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
               ...model.habitsData.keys.map(
-                    (habit) => HabitView(
-                  habit: habit,
-                  history: model.habitsData[habit] ?? [],
+                (habit) => GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    ref.read(createHabitProvider.notifier).setHabit(habit);
+                    Beamer.of(context).beamToNamed('/editHabit');
+                  },
+                  child: HabitView(
+                    habit: habit,
+                    history: model.habitsData[habit] ?? [],
+                  ),
                 ),
               ),
             ]),

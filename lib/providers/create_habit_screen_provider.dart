@@ -1,13 +1,12 @@
 import 'package:beamer/beamer.dart';
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/models/database/database.dart';
-import 'package:habit_tracker/models/screens/create_habit_model.dart';
 import 'package:habit_tracker/providers/database_provider.dart';
 import 'package:habit_tracker/providers/home_tab_provider.dart';
 
-final createHabitProvider =
-    StateNotifierProvider<CreateHabitNotifier, CreateHabitModel>(
+final createHabitProvider = StateNotifierProvider<CreateHabitNotifier, Habit>(
   (ref) {
     final db = ref.read(databaseProvider);
     return CreateHabitNotifier(db, ref);
@@ -30,33 +29,32 @@ final descriptionControllerProvider = Provider<TextEditingController>(
   },
 );
 
-class CreateHabitNotifier extends StateNotifier<CreateHabitModel> {
-  CreateHabitNotifier(this.db, this.ref)
-      : super(CreateHabitModel(
-          title: '',
-          description: '',
-        ));
+class CreateHabitNotifier extends StateNotifier<Habit> {
+  CreateHabitNotifier(this.db, this.ref) : super(_emptyHabit());
+
   final AppDatabase db;
   final Ref ref;
 
-  void updateTitle(String title) {
-    state = state.copyWith(title: title);
-  }
+  static Habit _emptyHabit() =>
+      Habit(id: -1, title: '', createdAt: DateTime.now());
 
-  void updateDescription(String description) {
-    state = state.copyWith(description: description);
-  }
+  void setHabit(Habit habit) => state = habit;
 
-  void reset() {
-    state = CreateHabitModel(title: '', description: '');
-  }
+  void updateTitle(String title) => state = state.copyWith(title: title);
 
-  Future save(BuildContext ctx) async {
-    await db.addHabit(state);
+  void updateMotivation(String? motivation) =>
+      state = state.copyWith(motivation: Value(motivation));
+
+  void reset() => state = _emptyHabit();
+
+  Future<void> save(BuildContext ctx) async {
+    if (state.id == -1) {
+      await db.addHabit(state);
+    } else {
+      await db.editHabit(state);
+    }
     ref.invalidate(homeTabProvider);
-
     reset();
-
     Beamer.of(ctx).beamBack();
   }
 }

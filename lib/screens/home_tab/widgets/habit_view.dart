@@ -12,47 +12,51 @@ class HabitView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: Text(
-            habit.title,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-        ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: {
-              PointerDeviceKind.mouse,
-              PointerDeviceKind.touch,
-            },
-          ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 32,
-                ),
-                ...List.generate(100, (i) => i).map((e) {
-                  final date =
-                      DateUtils.dateOnly(DateTime.now().subtract(e.days));
-                  final isSelected = history.any((e) =>
-                      e.habit == habit.id &&
-                      history.any((record) => record.completedAt == date));
-                  return DayTile(
-                    habitId: habit.id,
-                    isSelected: isSelected,
-                    date: date,
-                  );
-                })
-              ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Text(
+              habit.title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(height: 1),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 10),
+          ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+              },
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 32,
+                  ),
+                  ...List.generate(100, (i) => i).map((e) {
+                    final date =
+                        DateUtils.dateOnly(DateTime.now().subtract(e.days));
+                    final isSelected = history.any((e) =>
+                        e.habit == habit.id &&
+                        history.any((record) => record.completedAt == date));
+                    return DayTile(
+                      habitId: habit.id,
+                      isSelected: isSelected,
+                      date: date,
+                    );
+                  })
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

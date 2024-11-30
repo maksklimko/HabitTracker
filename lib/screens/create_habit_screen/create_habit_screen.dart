@@ -8,6 +8,11 @@ import '../../widgets/app_button.dart';
 class CreateHabitScreen extends ConsumerWidget {
   const CreateHabitScreen({super.key, this.isCreating = true});
 
+  const CreateHabitScreen.editing({
+    super.key,
+    this.isCreating = false,
+  });
+
   final bool isCreating;
 
   @override
@@ -17,7 +22,7 @@ class CreateHabitScreen extends ConsumerWidget {
     final createHabit = ref.watch(createHabitProvider);
 
     titleController.text = createHabit.title;
-    descriptionController.text = createHabit.description;
+    descriptionController.text = createHabit.motivation ?? '';
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
@@ -27,7 +32,10 @@ class CreateHabitScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('New habit', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                isCreating ? 'New habit' : 'Edit habit',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const CrossButton(),
             ],
           ),
@@ -36,6 +44,7 @@ class CreateHabitScreen extends ConsumerWidget {
           const SizedBox(height: 10),
           AppTextField(
             hint: 'Drink water',
+            controller: titleController,
             onChanged: ref.read(createHabitProvider.notifier).updateTitle,
           ),
           const SizedBox(height: 30),
@@ -44,11 +53,12 @@ class CreateHabitScreen extends ConsumerWidget {
           AppTextField(
             isMultiline: true,
             hint: 'Describe your motivation...',
-            onChanged: ref.read(createHabitProvider.notifier).updateDescription,
+            controller: descriptionController,
+            onChanged: ref.read(createHabitProvider.notifier).updateMotivation,
           ),
           const Spacer(flex: 10),
           AppButton(
-            title: 'Create',
+            title: isCreating ? 'Create' : 'Save',
             onTap: () {
               ref.read(createHabitProvider.notifier).save(context);
             },

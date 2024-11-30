@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/models/database/database.dart';
 import 'package:habit_tracker/screens/main_screen/UI/main_screen.dart';
 import 'package:habit_tracker/screens/splash_screen/UI/splash_screen.dart';
 import 'package:habit_tracker/utils/theme/theme.dart';
@@ -15,6 +16,7 @@ class App extends StatelessWidget {
         '/': (context, state, data) => const SplashScreen(),
         '/main': (context, state, data) => const MainScreen(),
         '/createHabit': (context, state, data) => const CreateHabitScreen(),
+        '/editHabit': (context, state, data) => CreateHabitScreen.editing(),
       },
     ).call,
   );
