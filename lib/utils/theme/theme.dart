@@ -61,7 +61,7 @@ class AppTheme {
     ),
     textTheme: TextTheme(
       titleLarge: GoogleFonts.roboto(
-        fontSize: 38,
+        fontSize: 30,
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
