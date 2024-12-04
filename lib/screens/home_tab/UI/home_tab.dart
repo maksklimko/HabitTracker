@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/providers/create_habit_screen_provider.dart';
 import 'package:habit_tracker/providers/home_tab_provider.dart';
 import 'package:habit_tracker/screens/home_tab/widgets/habit_view.dart';
+import 'package:habit_tracker/widgets/loading_widget.dart';
 
 class HomeTab extends ConsumerWidget {
   const HomeTab({super.key});
@@ -14,7 +15,7 @@ class HomeTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final homeTabState = ref.watch(homeTabProvider);
     return homeTabState.when(
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const LoadingWidget(),
       error: (err, stack) => Text('Error: $err'),
       data: (model) {
         return ScrollConfiguration(

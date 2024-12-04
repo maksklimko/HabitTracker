@@ -16,4 +16,17 @@ class SharedPreferencesService {
   Future<void> setAppTheme(ThemeMode theme) async {
     await _prefs.setString(SharedPreferencesKeys.APP_THEME_KEY, theme.name);
   }
+
+  bool get isNotificationsAllowed {
+    final isNotificationsAllowedPref =
+        _prefs.getBool(SharedPreferencesKeys.IS_NOTIFICATIONS_ALLOWED_KEY);
+    return isNotificationsAllowedPref ?? true;
+  }
+
+  Future<void> setIsNotificationsAllowed(bool isNotificationsAllowed) async {
+    await _prefs.setBool(
+      SharedPreferencesKeys.IS_NOTIFICATIONS_ALLOWED_KEY,
+      isNotificationsAllowed,
+    );
+  }
 }

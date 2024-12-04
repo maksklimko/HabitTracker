@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker/utils/extensions/string_extension.dart';
 
 import '../../../providers/settings_tab_provider.dart';
 
@@ -35,22 +36,23 @@ class ThemeSegmentedButton extends ConsumerWidget {
 
   Widget _buildButtonSegment(
       BuildContext ctx, ThemeMode theme, ThemeMode currentTheme) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Icon(_getThemeIcon(theme),
-            color: theme != currentTheme
-                ? currentTheme==ThemeMode.dark
-                    ? Colors.white
-                    : Colors.black
-                : null),
-        Text(
-          theme.name,
-          style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: theme == currentTheme ? Colors.black : null),
-        ),
-      ],
+    final primaryColor = theme != currentTheme
+        ? Colors.grey
+        : Colors.black;
+    return SizedBox(
+      height: 40,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Icon(_getThemeIcon(theme), color: primaryColor),
+          Text(
+            theme.name.capitalize(),
+            style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
+                  color: primaryColor,
+                ),
+          ),
+        ],
+      ),
     );
   }
 

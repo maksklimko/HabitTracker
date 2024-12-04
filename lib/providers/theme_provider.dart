@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/providers/shared_preferences_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +10,7 @@ final appThemeStateNotifier = ChangeNotifierProvider((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
 
   return prefs.maybeWhen(
-    data: (data)=> AppThemeState(SharedPreferencesService(data).appTheme),
+    data: (data) => AppThemeState(SharedPreferencesService(data).appTheme),
     orElse: () => AppThemeState(ThemeMode.system),
   );
 });
@@ -23,5 +25,17 @@ class AppThemeState extends ChangeNotifier {
   void updateTheme(ThemeMode theme) {
     appTheme = theme;
     notifyListeners();
+  }
+
+  Brightness getCurrentBrightness() {
+    final platformBrightness = PlatformDispatcher.instance.platformBrightness;
+    switch (appTheme) {
+      case ThemeMode.light:
+        return Brightness.light;
+      case ThemeMode.dark:
+        return Brightness.dark;
+      case ThemeMode.system:
+        return platformBrightness;
+    }
   }
 }

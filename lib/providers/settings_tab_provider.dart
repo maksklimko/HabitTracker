@@ -8,7 +8,7 @@ import 'package:habit_tracker/services/shared_preferences_service.dart';
 final settingsTabProvider =
     StateNotifierProvider<SettingsTabNotifier, AsyncValue<SettingsTabModel>>(
         (ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
+  final prefs = ref.read(sharedPreferencesProvider);
   final appThemeState = ref.watch(appThemeStateNotifier);
   return prefs.maybeWhen(
     data: (data) => SettingsTabNotifier(SharedPreferencesService(data),appThemeState),
@@ -29,13 +29,19 @@ class SettingsTabNotifier extends StateNotifier<AsyncValue<SettingsTabModel>> {
 
   Future loadData() async {
     final appTheme = prefs!.appTheme;
+    final isNotificationsAllowed = prefs!.isNotificationsAllowed;
 
-    final model = SettingsTabModel(true, appTheme);
+    final model = SettingsTabModel(isNotificationsAllowed, appTheme);
     state = AsyncValue.data(model);
   }
 
   void updateTheme(ThemeMode theme) {
     prefs!.setAppTheme(theme);
     themeState.updateTheme(theme);
+  }
+
+  void updateIsNotificationsAllowed(bool value) {
+    prefs!.setIsNotificationsAllowed(value);
+    state = AsyncValue.data(state.value!.copyWith(isNotificationAllowed: value));
   }
 }
