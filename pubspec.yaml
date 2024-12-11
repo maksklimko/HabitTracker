@@ -9,13 +9,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
   flutter_riverpod: ^2.6.1
   hooks_riverpod: ^2.6.1
   drift: ^2.21.0
   drift_flutter: ^0.2.1
   beamer: ^1.7.0
-  riverpod_lint: ^2.6.2
   google_fonts: ^6.2.1
   drawing_animation: ^1.0.1
   flutter_animate: ^4.5.0
@@ -32,7 +30,6 @@ dev_dependencies:
   drift_dev: ^2.21.2
   build_runner: ^2.4.13
   riverpod_generator: ^2.6.2
-  custom_lint: ^0.7.0
 
 flutter:
   uses-material-design: true
