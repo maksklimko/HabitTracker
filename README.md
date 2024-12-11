@@ -1,16 +1,19 @@
-# habit_tracker
+# Habit Tracker
 
-A new Flutter project.
+**Habit Tracker** is a Flutter example project showcasing:
+- **Complex staged animations** on the splash screen using the `flutter_animate` and `drawing_animation` packages.
+- **Core functionality** including:
+    - Adding and editing habits.
+    - Tracking habit completion.
+    - Changing themes.
 
-## Getting Started
+This project serves as a demonstration of integrating advanced animations with practical app features.
 
-This project is a starting point for a Flutter application.
+## Core Packages
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The following packages are used to implement key features:
+- **`flutter_riverpod`** – For state management.
+- **`drift`** – For storing habits data in a local database.
+- **`beamer`** – To explore a new navigation package.
+- **`drawing_animation`** – For creating dynamic path animations.
+- **`flutter_animate`** – To simplify the implementation of complex animations.  
