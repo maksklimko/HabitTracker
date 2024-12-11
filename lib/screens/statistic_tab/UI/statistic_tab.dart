@@ -5,8 +5,14 @@ class StatisticTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [Text("statistic")],
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text("Coming soon...",style: Theme.of(context).textTheme.labelLarge,),
+        ],
+      ),
     );
   }
 }
